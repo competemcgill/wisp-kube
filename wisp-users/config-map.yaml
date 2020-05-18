@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: users-configmap
+  namespace: prod
+data:
+  WISP_PROBLEMS_URL: http://wisp-problems

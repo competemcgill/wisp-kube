@@ -1,0 +1,27 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "wisp-problems"
+  namespace: "prod"
+  labels:
+    app: "wisp-problems"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "wisp-problems"
+  template:
+    metadata:
+      labels:
+        app: "wisp-problems"
+    spec:
+      containers:
+        - name: "wisp-problems"
+          image: "competemcgill/wisp-problems:latest"
+          imagePullPolicy: Always
+          env:
+            - name: "DB_URL"
+              valueFrom:
+                secretKeyRef:
+                  key: "DB_URL"
+                  name: "db-secrets"

@@ -1,0 +1,19 @@
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "wisp-gateway"
+  namespace: "prod"
+  labels:
+    app: "wisp-gateway"
+spec:
+  ports:
+    - name: "http"
+      port: 80
+      protocol: "TCP"
+    - name: "https"
+      protocol: "TCP"
+      port: 443
+  selector:
+    app: "wisp-gateway"
+  type: "LoadBalancer"
+  loadBalancerIP: "35.203.108.72"
