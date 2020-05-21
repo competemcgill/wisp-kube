@@ -1,0 +1,21 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "wisp-ui"
+  namespace: "dev"
+  labels:
+    app: "wisp-ui"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "wisp-ui"
+  template:
+    metadata:
+      labels:
+        app: "wisp-ui"
+    spec:
+      containers:
+        - name: "wisp-ui"
+          image: "competemcgill/wisp-ui:dev-latest"
+          imagePullPolicy: Always

@@ -1,0 +1,28 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "wisp-gateway"
+  namespace: "dev"
+  labels:
+    app: "wisp-gateway"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "wisp-gateway"
+  template:
+    metadata:
+      labels:
+        app: "wisp-gateway"
+    spec:
+      containers:
+        - name: "wisp-gateway"
+          image: "competemcgill/wisp-gateway:dev-latest"
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: tls
+              mountPath: "/tls"
+      volumes:
+        - name: "tls"
+          secret:
+            secretName: "domain-secrets"

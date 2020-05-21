@@ -1,0 +1,37 @@
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "wisp-users"
+  namespace: "dev"
+  labels:
+    app: "wisp-users"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "wisp-users"
+  template:
+    metadata:
+      labels:
+        app: "wisp-users"
+    spec:
+      containers:
+        - name: "wisp-users"
+          image: "competemcgill/wisp-users:dev-latest"
+          imagePullPolicy: Always
+          env:
+            - name: "DB_URL"
+              valueFrom:
+                secretKeyRef:
+                  key: "DB_URL"
+                  name: "db-secrets"
+            - name: "SECRET"
+              valueFrom:
+                secretKeyRef:
+                  key: "SECRET"
+                  name: "user-secrets"
+            - name: "WISP_PROBLEMS_URL"
+              valueFrom:
+                configMapKeyRef:
+                  name: "users-configmap"
+                  key: "WISP_PROBLEMS_URL"
